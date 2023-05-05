@@ -3,6 +3,8 @@
 <ul> 
       <li> Show Header  </li>
       <li> Show chef deatils  </li>
+      <li> Food Deatils </li>
+      <li> Login authentication </li>
       <li> React Basic 4 Question Answer </li>
       
     </ul>
