@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 const ChefSection = ({ job }) => {
 
     const { _id, chef_name, chef_photo, year_of_exprience, number_of_recipes, Like, description, } = job;
-
+console.log(_id);
     return (
         <>
 

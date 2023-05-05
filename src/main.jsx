@@ -14,6 +14,8 @@ import ErrorPage from './components/ErrorPage';
 import EachJob from './components/Chef/chefDetails';
 import Login from './components/Login/Login';
 import Register from './components/Register/Register';
+import ChefProvider from './ChefProvider/ChefProvider';
+import PrivateRoute from './PrivateRoute/PrivateRoute';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -41,7 +43,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/jobdetails/:jobId',
-        element: <EachJob />,
+        element: <PrivateRoute><EachJob /></PrivateRoute>,
         loader: () => fetch('http://localhost:5000/')
       },
     ],
@@ -50,6 +52,6 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <ChefProvider><RouterProvider router={router} /></ChefProvider>
   </React.StrictMode>,
 )

@@ -1,7 +1,25 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { ChefContext } from '../../ChefProvider/ChefProvider';
 
 const Login = () => {
+    const {googleLogIn} = useContext(ChefContext);
+
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/";
+
+    const handleGoogleLogin = () =>{
+        googleLogIn()
+        .then(result =>{
+            const loggedUSer = result.user;
+            console.log(loggedUSer);
+            navigate(from, { replace: true })
+        })
+        .catch(error =>{
+            console.log(error);
+        })
+    }
     return (
         <>
             <div className="relative flex flex-col justify-center min-h-screen overflow-hidden">
@@ -50,7 +68,7 @@ const Login = () => {
                         <div className="absolute px-5 bg-white">Or</div>
                     </div>
                     <div className="flex mt-4 gap-x-2">
-                        <button
+                        <button onClick={handleGoogleLogin}
                             type="button"
                             className="flex items-center justify-center w-full p-2 border border-gray-600 rounded-md focus:ring-2 focus:ring-offset-1 focus:ring-violet-600"
                         >
@@ -77,7 +95,7 @@ const Login = () => {
                     <p className="mt-8 text-xs font-light text-center text-gray-700">
                         {" "}
                         Don't have an account?{" "}
-                        <Link
+                        <Link 
                             to="/register"
                             className="font-medium text-purple-600 hover:underline"
                         >
