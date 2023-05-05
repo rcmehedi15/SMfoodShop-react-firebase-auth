@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { ChefContext } from '../../ChefProvider/ChefProvider';
 
 const Login = () => {
-    const {googleLogIn} = useContext(ChefContext);
+    const {googleLogIn,user} = useContext(ChefContext);
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -14,7 +14,7 @@ const Login = () => {
         .then(result =>{
             const loggedUSer = result.user;
             console.log(loggedUSer);
-            navigate(from, { replace: true })
+            navigate(from, { replace: true });
         })
         .catch(error =>{
             console.log(error);
