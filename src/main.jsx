@@ -26,7 +26,7 @@ const router = createBrowserRouter([
         path: '/',
         element: <Home />,
         errorElement: <ErrorPage />,
-        loader: () => fetch(`http://localhost:5000/`)
+        loader: () => fetch(`https://smfoodshop-server.vercel.app`)
       },
 
   
@@ -49,7 +49,7 @@ const router = createBrowserRouter([
       {
         path: '/FoodDetails/:jobId',
         element: <PrivateRoute><EachJob /></PrivateRoute>,
-        loader: () => fetch('http://localhost:5000/')
+        loader: () => fetch(`https://smfoodshop-server.vercel.app`)
       },
     ],
   },
