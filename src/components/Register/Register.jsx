@@ -1,83 +1,94 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+
+import { updateProfile } from 'firebase/auth';
+import { ChefContext } from '../../ChefProvider/ChefProvider';
+
 
 const Register = () => {
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/";
+
+    const { signUp } = useContext(ChefContext);
+    const HandleSignUp = (event) => {
+        event.preventDefault();
+        const form = event.target;
+        const name = form.name.value;
+        const email = form.email.value;
+        const photo = form.photo.value;
+        const password = form.password.value;
+        console.log(name, email, password, photo);
+
+        signUp(email, password)
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+                updateUserData(user, name, photo);
+                navigate(from, { replace: true })
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    }
+
+    const updateUserData = (user, name, photo) => {
+        updateProfile(user, {
+            displayName: name,
+            photoURL: photo,
+        })
+            .then(() => {
+                console.log('User name updated')
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    }
+
     return (
-        <>
-            <div className="relative flex flex-col justify-center min-h-screen overflow-hidden">
-                <div className="w-full p-6 m-auto bg-white rounded-md shadow-md lg:max-w-xl">
-                    <h1 className="text-2xl font-semibold text-center text-gray-700">
-                        Create an account
-                    </h1>
-                    <form className="mt-6">
-                        <div className="mb-2">
-                            <label
-                                htmlFor="name"
-                                className="block text-sm font-semibold text-gray-800"
-                            >
-                                Name
+        <div className="hero py-6">
+            <div className="hero-content flex-col lg:flex-row-reverse">
+                <div className="text-center lg:text-left lg:ps-5">
+                    <h1 className="text-5xl font-bold">Register now!</h1>
+                    <p className="py-6">Create a new account for explore auth master the coding universe for learn something.</p>
+                </div>
+                <div className=" flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100 p-5 rounded-3xl">
+                    <form className="card-body pb-1" onSubmit={HandleSignUp}>
+                        <div className="form-control">
+                            <label className="label">
+                                <span className="label-text">Name</span>
                             </label>
-                            <input
-                                type="email"
-                                className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40"
-                            />
+                            <input type="text" placeholder="Your name" name='name' className="input input-bordered" required />
                         </div>
-                        <div className="mb-2">
-                            <label
-                                htmlFor="email"
-                                className="block text-sm font-semibold text-gray-800"
-                            >
-                                Email
+                        <div className="form-control">
+                            <label className="label">
+                                <span className="label-text">Enter email</span>
                             </label>
-                            <input
-                                type="email"
-                                className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40"
-                            />
+                            <input type="email" placeholder="example@gmail.com" name='email' className="input input-bordered" required />
                         </div>
-                        <div className="mb-2">
-                            <label
-                                htmlFor="password"
-                                className="block text-sm font-semibold text-gray-800"
-                            >
-                                Password
+
+                        <div className="form-control">
+                            <label className="label">
+                                <span className="label-text">Choose Your Photo</span>
                             </label>
-                            <input
-                                type="password"
-                                className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40"
-                            />
+                            <input type="text" placeholder="Your photo" name='photo' className="input input-bordered" required />
                         </div>
-                        <div className="mb-2">
-                            <label
-                                htmlFor="password"
-                                className="block text-sm font-semibold text-gray-800"
-                            >
-                                Photo URL
+                        <div className="form-control">
+                            <label className="label">
+                                <span className="label-text">Your password</span>
                             </label>
-                            <input
-                                type="text"
-                                className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40"
-                            />
+                            <input type="password" placeholder="Password" name='password' className="relative input input-bordered" required />
                         </div>
-                        <p className="text-xs text-gray-800 font-bold">
-                            Password must be at least 8 characters long
-                        </p>
-                        <div className="mt-6">
-                            <button className="w-full px-4 py-2 text-white bg-gray-800 rounded-lg hover:bg-gray-900 focus:outline-none focus:bg-gray-600">
-                                Sign up
-                            </button>
+                        <div className="form-control mt-4">
+                            <button className="btn bg-orange-400 border-0">Sign Up</button>
                         </div>
                     </form>
-
-                    <p className="mt-2 text-xs text-center text-gray-700">
-                        {" "}
-                        Already a member?{" "}
-                        <Link to="/login" className="font-medium text-gray-600 hover:underline">
-                            Sign in
-                        </Link>
-                    </p>
+                    <label className="p-10">
+                        <p className='text-center'>Already have an account ? <Link to="/login" className="text-blue-400 link link-hover">Login Now!</Link></p>
+                    </label>
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 

@@ -32,7 +32,7 @@ console.log(_id);
 
 
                 </div>
-                <Link to={`/jobdetails/${_id}`} className=" ms-4 mb-3 p-3  rounded-lg btn-info text-white w-32" >
+                <Link to={`/FoodDetails/${_id}`} className=" ms-4 mb-3 p-3  rounded-lg btn-info text-white w-32" >
                     View Details
                 </Link>
 

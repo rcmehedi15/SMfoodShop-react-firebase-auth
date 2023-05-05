@@ -16,6 +16,7 @@ import Login from './components/Login/Login';
 import Register from './components/Register/Register';
 import ChefProvider from './ChefProvider/ChefProvider';
 import PrivateRoute from './PrivateRoute/PrivateRoute';
+import Account from './components/Account/Account';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -42,7 +43,11 @@ const router = createBrowserRouter([
         element: <Register />
       },
       {
-        path: '/jobdetails/:jobId',
+        path: '/profile',
+        element: <PrivateRoute><Account></Account></PrivateRoute>
+      },
+      {
+        path: '/FoodDetails/:jobId',
         element: <PrivateRoute><EachJob /></PrivateRoute>,
         loader: () => fetch('http://localhost:5000/')
       },
