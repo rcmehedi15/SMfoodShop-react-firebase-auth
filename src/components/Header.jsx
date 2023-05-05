@@ -35,8 +35,8 @@ const Header = () => {
                     </div>
                     <div className="navbar-center hidden lg:flex">
                         <ul className=" menu-horizontal">
-                            <li><Link to="/"  onClick={() => handleClick(0)} className={activeButton === 0 ? 'text-white bg-blue-500 rounded-lg p-2 m-4' : ''}>Home</Link></li>
-                            <li><Link to="/blog" onClick={() => handleClick(1)} className={activeButton === 1 ?  'text-white bg-blue-500 rounded-lg p-2 m-4' : ''}>Blog</Link></li>
+                            <li><Link to="/"  onClick={() => handleClick(0)} className={activeButton === 0 ? 'text-white bg-blue-500 rounded-lg p-2 m-4' : 'p-4'}>Home</Link></li>
+                            <li><Link to="/blog" onClick={() => handleClick(1)} className={activeButton === 1 ?  'text-white bg-blue-500 rounded-lg p-2 m-4' : 'p-4'}>Blog</Link></li>
                         </ul>
                     </div>
                     <div className="navbar-end ">

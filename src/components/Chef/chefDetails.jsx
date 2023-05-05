@@ -25,6 +25,9 @@ const chefDetails = () => {
                             </svg> {Like} </p>
                        <br />
                          <p > <span className='p-2 bg-blue-500 rounded-md text-white'>Short Description </span> <br /> <br /> <span>{description}</span></p>
+                         
+                         <br />
+                         <button className='p-2 bg-green-500 rounded-md text-white w-20' >Favourite </button>
                          </div>
                     </div>
                        
